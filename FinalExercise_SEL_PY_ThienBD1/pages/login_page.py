@@ -17,7 +17,7 @@ class LoginPage(BasePage):
         self.enter_username(username) # Enter the username
         self.enter_password(password) # Enter the password       
         self.click_login_button()     # Click the login button
-        time.sleep(5)                # Wait for 10 seconds to observe the result (not recommended for production code)
+        # time.sleep(5)                # Wait for 10 seconds to observe the result (not recommended for production code)
     
     def enter_username(self, username):
         username_element = self.wait_for_element(self.username_field) # Wait for the username field to be present

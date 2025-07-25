@@ -16,6 +16,13 @@ class BasePage:
             EC.presence_of_element_located(locator)
         )
         return element
+    
+    def wait_for_elements(self, locator):
+        """Waits for multiple elements to be present in the DOM."""
+        elements = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located(locator)
+        )
+        return elements
 
     def click(self, locator):
         """Waits for an element to be clickable and then clicks it."""

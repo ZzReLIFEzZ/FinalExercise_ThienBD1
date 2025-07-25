@@ -1,0 +1,36 @@
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from base.base_test import BaseTest
+from base.base_page import BasePage
+import time
+
+class IventoryPage(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)  # Call the constructor of BasePage
+        self.inventory_items = (By.CLASS_NAME, "inventory_item")  # Assuming inventory items have this class
+        self.cart_button = (By.ID, "shopping_cart_container")  # Assuming the cart button has this ID
+        self.cart_items_count = (By.CLASS_NAME, "shopping_cart_badge")  # Assuming the cart items count has this class
+        self.add_to_cart_buttons = (By.CLASS_NAME, "btn_primary")       # Assuming add to cart buttons have this class
+
+    def get_inventory_items(self):
+        """Returns a list of inventory items."""
+        return self.wait_for_elements(self.inventory_items)
+
+    def click_cart_button(self):
+        """Clicks the cart button to view the cart."""
+        self.click(self.cart_button)  # Click the cart button using the click method from BasePage
+
+    def add_item_to_cart(self, item_index):
+        """Adds an item to the cart by its index in the inventory items list."""
+        inventory_items = self.wait_for_elements((By.CSS_SELECTOR, "div.inventory_item"))
+    
+        if 0 <= item_index < len(inventory_items):
+            try:
+                # Tìm nút 'Add to cart' trong từng item
+                add_button = inventory_items[item_index].find_element(By.CSS_SELECTOR, "button.btn_primary")
+                add_button.click()
+            except:
+                print(f" Item {item_index} không có nút Add to cart (có thể đã được thêm)")
+        else:
+            raise IndexError("Item index out of range")
