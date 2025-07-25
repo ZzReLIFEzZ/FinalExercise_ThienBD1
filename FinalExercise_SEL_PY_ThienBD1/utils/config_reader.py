@@ -21,9 +21,24 @@ class ConfigReader:
     @staticmethod
     def get_username():
         """Returns the username from the configuration."""
-        return ConfigReader.load_config()['credentials']['username']
+        return ConfigReader.load_config()['LoginInfo']['username']
     
     @staticmethod
     def get_password():
         """Returns the password from the configuration."""
-        return ConfigReader.load_config()['credentials']['password']
+        return ConfigReader.load_config()['LoginInfo']['password']
+    
+    @staticmethod
+    def get_firstname():
+        """Returns the first name for checkout from the configuration."""
+        return ConfigReader.load_config()['CheckoutInfo']['firstname']
+    
+    @staticmethod
+    def get_lastname():
+        """Returns the last name for checkout from the configuration."""
+        return ConfigReader.load_config()['CheckoutInfo']['lastname']
+    
+    @staticmethod
+    def get_zipcode():
+        """Returns the postal code for checkout from the configuration."""
+        return ConfigReader.load_config()['CheckoutInfo']['zipcode']

@@ -13,14 +13,14 @@ class BasePage:
     def wait_for_element(self, locator):
         """Waits for an element to be present in the DOM."""
         element = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(locator)
+            EC.visibility_of_element_located(locator)
         )
         return element
     
     def wait_for_elements(self, locator):
         """Waits for multiple elements to be present in the DOM."""
         elements = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(locator)
+            EC.visibility_of_all_elements_located(locator)
         )
         return elements
 

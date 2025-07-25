@@ -1,9 +1,5 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from base.base_test import BaseTest
 from base.base_page import BasePage
-import time
 
 class IventoryPage(BasePage):
     def __init__(self, driver):
