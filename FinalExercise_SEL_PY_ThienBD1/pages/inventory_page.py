@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from base.base_page import BasePage
 
 class IventoryPage(BasePage):
@@ -14,8 +16,18 @@ class IventoryPage(BasePage):
         return self.wait_for_elements(self.inventory_items)
 
     def click_cart_button(self):
-        """Clicks the cart button to view the cart."""
-        self.click(self.cart_button)  # Click the cart button using the click method from BasePage
+        """Clicks the cart button and waits for the cart page to load."""
+        self.click(self.cart_button)  # Click vào icon giỏ hàng (ở góc phải)
+
+     # Đợi URL chuyển sang trang giỏ hàng
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("/cart")
+        )
+
+    # (Tùy chọn) Đợi phần tử đặc trưng trong trang giỏ hàng xuất hiện
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "cart_list"))
+        )
 
     def add_item_to_cart(self, item_index):
         """Adds an item to the cart by its index in the inventory items list."""

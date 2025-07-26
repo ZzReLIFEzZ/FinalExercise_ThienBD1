@@ -8,10 +8,10 @@ import random
 import time
 import allure
 
-class Test_LoginPage(BaseTest):
+class Test_CheckoutPage(BaseTest):
     @allure.story("Mua hàng thành công")
     @allure.severity(allure.severity_level.CRITICAL)
-    def test_add_to_card(self):
+    def test_purchase_successful(self):
         """Test to add items to the cart and complete the checkout process."""
         login_page = LoginPage(self.driver)
         iventory_page = IventoryPage(self.driver)
