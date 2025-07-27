@@ -1,0 +1,8 @@
+🔎 Tổng số sản phẩm: 6
+✅ Sản phẩm 0 còn nút Add to cart
+✅ Sản phẩm 1 còn nút Add to cart
+✅ Sản phẩm 2 còn nút Add to cart
+✅ Sản phẩm 3 còn nút Add to cart
+✅ Sản phẩm 4 còn nút Add to cart
+✅ Sản phẩm 5 còn nút Add to cart
+📦 Có 6 sản phẩm có thể thêm vào giỏ
