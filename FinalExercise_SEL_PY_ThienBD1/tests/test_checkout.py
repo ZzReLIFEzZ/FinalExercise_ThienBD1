@@ -17,12 +17,16 @@ class Test_CheckoutPage(BaseTest):
         iventory_page = IventoryPage(self.driver)
         cart_page = Cart_Page(self.driver)
         checkout_page = CheckoutPage(self.driver)
+        self.driver.delete_all_cookies()
+        # ✅ Truy cập lại trang login nếu cần
+        # self.driver.get("https://www.saucedemo.com/")
         login_page.do_login(ConfigReader.get_username(), ConfigReader.get_password()) # Đăng nhập vào trang web
-        items = iventory_page.get_inventory_items() # Lây danh sách các sản phẩm trong kho
-        random_index = random.sample(range(len(items)), 3) # Lấy ngẫu nhiên 3 sản phẩm từ kho
-        # Add items to cart
-        for index in random_index:
-            iventory_page.add_item_to_cart(index)   # Thêm sản phẩm vào giỏ hàng
+        # items = iventory_page.get_inventory_items() # Lây danh sách các sản phẩm trong kho
+        addable_indexes = iventory_page.get_addable_item_indexes()
+        assert len(addable_indexes) >= 3, "Không đủ sản phẩm có thể thêm vào giỏ hàng."
+        selected_indexes = random.sample(addable_indexes, 3)  # ✅ Không trùng
+        for index in selected_indexes:
+            iventory_page.add_item_to_cart(index)
         iventory_page.click_cart_button()   # Click vào giỏ hàng để xem các sản phẩm đã thêm
         cart_page.click_checkout_button()   # Click vào nút checkout để tiến hành thanh toán
         checkout_page. do_checkout(

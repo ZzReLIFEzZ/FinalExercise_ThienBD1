@@ -10,6 +10,7 @@ class IventoryPage(BasePage):
         self.cart_button = (By.ID, "shopping_cart_container")  # Assuming the cart button has this ID
         self.cart_items_count = (By.CLASS_NAME, "shopping_cart_badge")  # Assuming the cart items count has this class
         self.add_to_cart_buttons = (By.CLASS_NAME, "btn_primary")       # Assuming add to cart buttons have this class
+        
 
     def get_inventory_items(self):
         """Returns a list of inventory items."""
@@ -29,16 +30,31 @@ class IventoryPage(BasePage):
             EC.visibility_of_element_located((By.CLASS_NAME, "cart_list"))
         )
 
+    def get_addable_item_indexes(self):
+        inventory_items = self.get_inventory_items()
+        print(f"🔎 Tổng số sản phẩm: {len(inventory_items)}")
+        addable_indexes = []
+        for idx, item in enumerate(inventory_items):
+            try:
+                item.find_element(By.CSS_SELECTOR, "button.btn_primary")
+                print(f"✅ Sản phẩm {idx} còn nút Add to cart")
+                addable_indexes.append(idx)
+            except:
+                print(f"❌ Sản phẩm {idx} KHÔNG có nút Add to cart (có thể đã được thêm)")
+                continue
+        print(f"📦 Có {len(addable_indexes)} sản phẩm có thể thêm vào giỏ")
+        return addable_indexes
+
     def add_item_to_cart(self, item_index):
         """Adds an item to the cart by its index in the inventory items list."""
-        inventory_items = self.wait_for_elements((By.CSS_SELECTOR, "div.inventory_item"))
-    
+        inventory_items = self.get_inventory_items()
+
         if 0 <= item_index < len(inventory_items):
             try:
-                # Tìm nút 'Add to cart' trong từng item
                 add_button = inventory_items[item_index].find_element(By.CSS_SELECTOR, "button.btn_primary")
                 add_button.click()
             except:
-                print(f" Item {item_index} không có nút Add to cart (có thể đã được thêm)")
+                print(f"⚠️ Item {item_index} không có nút Add to cart (có thể đã được thêm)")
         else:
             raise IndexError("Item index out of range")
+        
